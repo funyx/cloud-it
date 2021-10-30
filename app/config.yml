@@ -1,0 +1,17 @@
+default:
+  database:
+    driver: "MySQL ODBC 8.0 Unicode Driver"
+    server: "db"
+    uid: "shiny_app"
+    pwd: "shiny_app"
+    port: 3306
+    database: "shiny_app"
+    
+test:
+  database:
+    driver: 'PostgresPro'
+    server: 'mydb-prod.company.com'
+    uid: !expr Sys.getenv("DBUSER")
+    pwd: !expr Sys.getenv("DBPWD")
+    port: 5432
+    database: 'regional-sales-full'
