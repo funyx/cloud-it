@@ -8,6 +8,8 @@ analysis_page <- function(id = "analysis") {
                 horizontal = TRUE,
                 tokens = list(childrenGap = 10),
                 makeCard("Filters",
+                    size = 4,
+                    style = "max-height: 320px",
                     Stack(
                         tokens = list(childrenGap = 10),
                         Stack(
@@ -51,15 +53,12 @@ analysis_page <- function(id = "analysis") {
                             value = TRUE,
                             label = "Include closed deals only?"
                         )
-                    ),
-                    size = 4,
-                    style = "max-height: 320px"
+                    )
                 ),
-                makeCard(
-                    "Deals count",
-                    plotlyOutput(ns("plot")),
+                makeCard("Deals count",
                     size = 8,
-                    style = "max-height: 320px"
+                    style = "max-height: 320px",
+                    plotlyOutput(ns("plot"))
                 )
             ),
             uiOutput(ns("analysis"))
@@ -113,17 +112,19 @@ analysis_page_sv <- function(input, output, session) {
             ggplotly(p, height = 300)
         })
 
-        output$analysis_we <- renderUI({
-            Text("TEST WE")
-        })
         output$analysis <- renderUI({
             Stack(
-                tokens = list(childrenGap = 10), horizontal = TRUE,
-                makeCard("Map", leafletOutput(ns("map"))),
-                makeCard(
-                    "Top results",
+                horizontal = TRUE,
+                tokens = list(childrenGap = 10),
+                makeCard("Map",
+                    size = 4,
+                    style = "max-height: 500px; overflow: auto",
+                    leafletOutput(ns("map"))
+                ),
+                makeCard("Top results",
+                    size = 8,
+                    style = "max-height: 500px; overflow: auto",
                     div(
-                        style = "max-height: 500px; overflow: auto",
                         if (nrow(filtered_deals()) > 0) {
                             DetailsList(
                                 items = filtered_deals(),
@@ -151,7 +152,7 @@ analysis_page_sv <- function(input, output, session) {
                             p("No matching transactions.")
                         }
                     )
-                ),
+                )
             )
         })
     }, "analysis")
